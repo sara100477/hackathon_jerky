@@ -8,22 +8,19 @@
   function scroll_follow(id) {
     $(window).scroll(function ()  //스크롤이 움직일때마다 이벤트를 발생시키고   
     {
-      var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다. 
-      $(id).stop().animate({ top: position + "px" }, 1); //해당 오브젝트 위치값 재설정  
+        
     });
   }
   scroll_follow("#scroll");
   $(document).ready(function () {
     for (var i = 0; i < 10; i++) { $('#brr').html($('#brr').html() + "<br>" + i); }
   });
-
-
 </script>
 
-<div id="scroll" style="position:absolute; right:100; margin-top: 400px; margin-left: 15px; max-height: 400;">
+<div id="scroll" style="position:absolute;right:100; margin-top: 200px; margin-left: 15px;">
   <br><br><br>
   <div class="card"
-    style="border:1px; border: 2px solid gray; width:100%; background-color: rgba( 255, 255, 255, 1 ); border-radius: 15px;">
+    style="border:1px ;border: 2px solid gray;width:100%;background-color: rgba( 255, 255, 255, 1 );border-radius: 15px;">
     <p>
       <form action="{%url 'home' %}" method="POST">{% csrf_token %}
         <div style="border-bottom: 1px solid rgba(128, 128, 128, 0.329) ; ">
@@ -34,13 +31,12 @@
           &nbsp<input type="checkbox" name="brand" value="all">&nbsp전체 브랜드<br><br>
         </div>
 
-        <div>
           <h4 style="text-align:center;"><strong>Sale type</strong></h4>
           <input type="hidden" name="saletype" value="all">
           &nbsp<input type="checkbox" name="saletype" value="경매">&nbsp경매<br>
           &nbsp<input type="checkbox" name="saletype" value="급매">&nbsp급매<br>
           &nbsp<input type="checkbox" name="saletype" value="all">&nbsp전체<br>
-        </div>
+
         <div>
           <input class="button" type="submit" style=" margin: 10px; margin-bottom: 0px; border-radius: 12px; padding: -10px;" value="Search!">
         </div>
@@ -48,8 +44,6 @@
     </p>
   </div>
 </div>
-
-
 
 <!--Start Nav bar-->
 <p style="margin: 50px;"> &nbsp</p>
@@ -108,9 +102,9 @@
           </form>
         </p>
 
-        <a class="btn btn-primary" href="{%url 'buy' details.id%}" role="button">구매</a>
-        <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
-        <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
+        <a class="button_round" href="{%url 'buy' details.id%}" >구매</a>
+        <a class="button_round" href="{%url 'upload_file' %}">상품등록</a>
+        <a class="button_round" href="{%url 'home' %}">돌아가기</a>
       </div>
     </div>
   </div>
@@ -134,9 +128,9 @@
           원가:&nbsp{{details.originalprice}}<br>
           작성자:&nbsp{{details.user_id}}</p>
 
-        <a class="btn btn-primary" href="{%url 'buy' details.id%}" role="button">구매</a>
-        <a class="btn btn-primary" href="{%url 'upload_file' %}" role="button">상품등록</a>
-        <a class="btn btn-primary" href="{%url 'home' %}" role="button">돌아가기</a>
+        <a class="button_round" href="{%url 'buy' details.id%}">구매</a>
+        <a class="button_round" href="{%url 'upload_file' %}">상품등록</a>
+        <a class="button_round" href="{%url 'home' %}" >돌아가기</a>
       </div>
     </div>
   </div>
@@ -147,34 +141,51 @@
 
 
 <!--Start Sort-->
-<p style="text-align: right; grid-gap: 1rem; margin-right: 10rem;">
-  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 1 %}">
-    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>최신순&nbsp&nbsp
-  </a>
-  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;"
-    href="{%url 'home' 2 2 %}">낮은가격순&nbsp&nbsp </a>
-  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 3 %}">높은가격순 </a>
+<p style="text-align: right; grid-gap: 1rem; margin-right: 15rem;">
+  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 1 checked_brand checked_sale %}">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>최신순&nbsp&nbsp</a>
+  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 2 checked_brand checked_sale %}">낮은가격순&nbsp&nbsp </a>
+  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 3 checked_brand checked_sale %}">높은가격순 </a>
 </p>
 
 
+
 <!--Start// Show products-->
+{%if checked_brand or checked_sale%}
+<div class="card-group">
+    {% for u in posts %}
+    <a href="{%url 'home' 1 u.id checked_brand checked_sale sorting%}" style="text-decoration: none;" class="button">
+      <div class="card" style="border-color: rgba(255,255,255,1);">
+        <img src="{{u.productimg.url}}" height="200" width="100%" alt="" text-align:center>
+        <div class="card-body">
+          <h5 class="card-title">{{u.pbrand}}</h5>
+          <h5 class="card-title">{{u.pitem}}</h5>
+          <p class="card-text">{{u.lowerlimit}}</p>
+        </div>
+      </div>
+    </a>
+    {%endfor%}
+  </div>
+
+{%else%}
+
 <div class="card-group">
   {% for u in posts %}
-  <a href="{%url 'home' 1 u.id %}" style="text-decoration: none;" class="button">
+  <a href="{%url 'home' 1 u.id 99999 99999 sorting %}" style="text-decoration: none;" class="button">
     <div class="card" style="border-color: rgba(255,255,255,1);">
       <img src="{{u.productimg.url}}" height="200" width="100%" alt="" text-align:center>
       <div class="card-body">
         <h5 class="card-title">{{u.pbrand}}</h5>
         <h5 class="card-title">{{u.pitem}}</h5>
         <p class="card-text">{{u.lowerlimit}}</p>
-
+  
 
       </div>
     </div>
   </a>
   {%endfor%}
 </div>
-
+{%endif%}
 
 
 <!--Start Pagination-->

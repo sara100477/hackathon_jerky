@@ -9,7 +9,9 @@ import upload.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',mainapp.views.main.home,name='home'),
-    path('home/<int:flag>/<int:id_num>',mainapp.views.main.home,name='home'),
+    path('home/<int:flag>/<int:id_num>/',mainapp.views.main.home,name='home'),
+    path('home/<int:flag>/<int:id_num>/<str:brand>/<str:sale>/',mainapp.views.main.home,name='home'),
+    path('home/<int:flag>/<int:id_num>/<str:brand>/<str:sale>/<int:sorting>/',mainapp.views.main.home,name='home'),
     path('upload/',upload.views.upload_file, name='upload_file'),
     path('mainapp/',include('mainapp.urls')),
     path('accounts/',include('accounts.urls')),

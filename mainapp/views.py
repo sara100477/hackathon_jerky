@@ -12,31 +12,61 @@ from django.views.decorators.csrf import csrf_exempt
 
 class main:
     @csrf_exempt
-    def home( request, flag=99999 , id_num=99999):
-        print('####  START  ####')
-        print(flag ,id_num)
-        print(request.method)
-   
+    def home( request, flag=99999 , id_num=99999,brand="all",sale="all",sorting=99999):
+        if flag != 2 and sorting == 99999:
+            sorting = 99999
+        if brand not in ('all','스타벅스','투썸플레이스'):
+            brand = 'all'
+        if sale not in ('경매','급매','all'):
+            sale = 'all'
+
+
+        print('#################################')
+        print( flag,id_num,brand,sale,sorting)
         ufl = UploadFileModel.objects.all()
         brand_for_categorys = brand_for_category.objects
 
         details = None
         if flag==1: # datail
-            if id_num != 99999:
+            if id_num == 99999:
                 print("html에서 값을 제대로 지정하지 않음")
-            details = get_object_or_404(UploadFileModel, pk=id_num)  
-        
-        elif flag ==2: # sort
+                return render(request,'home.html')
+            details = get_object_or_404(UploadFileModel, pk=id_num) 
+            if brand != 'all':
+                ufl = ufl.filter(pbrand=brand)
+            if sale != 'all':
+                ufl = ufl.filter(saletype=sale)
+            
+            if sorting in (1,2,3):
+                id_num = sorting
+
+                if id_num == 2:
+                    ufl = ufl.order_by('lowerlimit')
+                elif id_num == 1:
+                    ufl = ufl.order_by('pub_date')
+                elif id_num == 3:
+                    ufl = ufl.order_by('-lowerlimit')
+                else:
+                    ufl = ufl
+
+
+        elif flag ==2:  # sort
+            if brand != 'all':
+                ufl = ufl.filter(pbrand=brand)
+            if sale != 'all':
+                ufl = ufl.filter(saletype=sale)
+
             sort = id_num
+            sorting = id_num
             if id_num == 2:
                 ufl = ufl.order_by('lowerlimit')
             elif id_num == 1:
-                ufl = UploadFileModel.objects.all().order_by('pub_date')
+                ufl = ufl.order_by('pub_date')
             elif id_num == 3:
-                ufl = UploadFileModel.objects.all().order_by('-lowerlimit')
+                ufl = ufl.order_by('-lowerlimit')
             else:
                 ufl = ufl
-            
+
         else:    # 브랜드/상품 카테고리 선택
             if request.method == 'POST':
                 select_brand = request.POST['brand']
@@ -50,12 +80,32 @@ class main:
                     print(request.POST['saletype'])
                     ufl = ufl.filter(saletype=select_sale)
 
+                checked_brand = select_brand
+                checked_sale = select_sale
+
+                paginator = Paginator(ufl, 10)
+                page = request.GET.get('page')
+                posts = paginator.get_page(page)
+
+
+                return render(request, 'home.html',{ 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details,'checked_brand':checked_brand,'checked_sale':checked_sale,'sorting':sorting})
+        
+        if brand == 'all' and sale == 'all':         
+            checked_brand = None
+            checked_sale = None
+        else:
+            checked_brand = brand
+            checked_sale = sale 
 
         paginator = Paginator(ufl, 10)
         page = request.GET.get('page')
         posts = paginator.get_page(page)
   
-        return render(request, 'home.html',{ 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
+        return render(request, 'home.html',{ 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details,'checked_brand':checked_brand,'checked_sale':checked_sale,'sorting':sorting})
+
+
+
+
 
 def about(request):
     return render(request,'about.html')

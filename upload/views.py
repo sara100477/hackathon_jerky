@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 import mainapp.views
-from mainapp.models import category 
+from mainapp.models import category ,brand_for_category
 from django.core.paginator import Paginator
 from django.utils import timezone
 
@@ -14,12 +14,16 @@ from django.utils import timezone
 
 @login_required
 def upload_file(request):
+    
+    #categorys = category.objects.distinct('brand')
+    brands = category.objects.filter().values_list('brand',flat=True).distinct()
+    allmenu = category.objects.all()
+    print(allmenu)
     if request.method == 'POST':
 
         form = UploadFileForm(request.POST, request.FILES)
 
         if form.is_valid():
-            categorys = category.objects.all()
 
             post = form.save(commit=False)
             post.user_id = request.user.username
@@ -41,4 +45,4 @@ def upload_file(request):
             return redirect('home')
     else:
         form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'upload.html', {'form': form,'brands':brands,'allmenu':allmenu})

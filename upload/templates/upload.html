@@ -315,8 +315,10 @@ GentleForm related styles
           </label>
 
           <select name="pbrand" required id="id_pbrand" style="width:203px;" >
-            <option>스타벅스</option>
-            <option>투썸플레이스</option>
+            {%for b in brands%}
+            <option>{{b}}</option>
+            {%endfor%}
+            
           </select><br></p>
 
           <label for="name" class="form-label form-label--required">
