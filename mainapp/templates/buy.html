@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+{% extends 'base.html'%}
+
+
+<body>
+    <!--제목 block사이에 입력하면 됩니다.-->
+
+    <!--타이틀 끝-->
+
+
+    <!--컨텐츠 block사이에 입력하면 됩니다.-->
+    {% block contents %}
+
+
+
+    <div style="text-align: center">
+    <h4>{{productbuy.pbrand}}</h4>
+    <p>{{productbuy.pitem}}</p>
+    <img src="{{productbuy.productimg.url}}" height="300" alt=""><br>
+    <br><br>
+    <p>결제금액: {{productbuy.lowerlimit}}</p>
+    <p>판매자: {{productbuy.user_id}}</p>
+    <br>
+    <h4>구매자 정보를 확인하세요</h4>
+    <br>
+    <form action="전송받을 대상">
+        
+    이름 : <span class="border border-warning"><input type="text" name="myid"></span><br>
+    이메일 : <span class="border border-warning"><input type="text" name="myid"></span><br>
+    전화번호 : <span class="border border-warning"><input type="text" name="myid"></span>
+   
+    </form>    
+    <br>
+    <h4>결제 정보를 확인하세요</h4>
+    <br>
+    총 결제 금액 : <span class="border border-warning"><input type="text" name="myid"></span>
+    <br><br>
+    <h4>결제방법을 선택하세요</h4>
+    <br>
+    <button type="button" class="btn btn-outline-warning">계좌이체</button>
+    <button type="button" class="btn btn-outline-warning">신용/체크카드</button>
+    <button type="button" class="btn btn-outline-warning">휴대폰</button>
+    <button type="button" class="btn btn-outline-warning">무통장입금</button>
+    <br><br>
+    <h4>결제하세요</h4>
+    <br>
+    <a class="btn btn-primary" href="{%url 'pay' productbuy.id %}" role="button">결제하기</a>
+    <a class="btn btn-primary" href="{%url 'home' %}" role="button">홈으로 돌아가기</a>
+
+
+
+
+    {%endblock%}
+    <!--컨텐츠 끝-->
+
+</body>
