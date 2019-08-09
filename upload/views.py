@@ -30,7 +30,7 @@ def upload_file(request):
             post.pub_date=timezone.datetime.now()
             post.productimg_name = str(post.pbrand)+''+str(post.pitem)
 
-            for ctg in categorys:
+            for ctg in allmenu:
                 if(ctg.brand == post.pbrand):
                     if(ctg.item == post.pitem):
                         post.originalprice = ctg.originalprice
