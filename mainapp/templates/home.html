@@ -133,7 +133,7 @@
   {% for u in posts %}
   <a href="{%url 'home' 1 u.id %}" style="text-decoration: none;" class="button">
   <div class="card" style="border-color: rgba(255,255,255,1);">
-    <img src="{{u.productimg.url}}" height="300" alt="">
+    <img src="{{u.productimg.url}}" height="180" width="160" alt="">
     <div class="card-body">
       <h5 class="card-title">{{u.pbrand}}</h5>
       <h5 class="card-title">{{u.pitem}}</h5>
