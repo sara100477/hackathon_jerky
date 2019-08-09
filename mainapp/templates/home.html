@@ -9,19 +9,21 @@
     $(window).scroll(function ()  //스크롤이 움직일때마다 이벤트를 발생시키고   
     {
       var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다. 
-      $(id).stop().animate({ top: position + "px" }, 1); //해당 오브젝트 위치값 재설정    
+      $(id).stop().animate({ top: position + "px" }, 1); //해당 오브젝트 위치값 재설정  
     });
   }
   scroll_follow("#scroll");
   $(document).ready(function () {
     for (var i = 0; i < 10; i++) { $('#brr').html($('#brr').html() + "<br>" + i); }
   });
+
+
 </script>
 
-<div id="scroll" style="position:absolute;right:100; margin-top: 400px; margin-left: 15px;">
+<div id="scroll" style="position:absolute; right:100; margin-top: 400px; margin-left: 15px; max-height: 400;">
   <br><br><br>
   <div class="card"
-    style="border:1px ;border: 2px solid gray;width:100%;background-color: rgba( 255, 255, 255, 1 );border-radius: 15px;">
+    style="border:1px; border: 2px solid gray; width:100%; background-color: rgba( 255, 255, 255, 1 ); border-radius: 15px;">
     <p>
       <form action="{%url 'home' %}" method="POST">{% csrf_token %}
         <div style="border-bottom: 1px solid rgba(128, 128, 128, 0.329) ; ">
@@ -32,7 +34,7 @@
           &nbsp<input type="checkbox" name="brand" value="all">&nbsp전체 브랜드<br><br>
         </div>
 
-        <div style="">
+        <div>
           <h4 style="text-align:center;"><strong>Sale type</strong></h4>
           <input type="hidden" name="saletype" value="all">
           &nbsp<input type="checkbox" name="saletype" value="경매">&nbsp경매<br>
