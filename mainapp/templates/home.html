@@ -1,66 +1,90 @@
 {% extends 'base.html' %}
 
 
-
 {% block contents %}
 
-<!-- -----------------------------------------nav bar------------------------------------------------------------------------->
+<!--Start Side bar-->
+<script type="text/javascript">
+  function scroll_follow(id) {
+    $(window).scroll(function ()  //스크롤이 움직일때마다 이벤트를 발생시키고   
+    {
+      var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다. 
+      $(id).stop().animate({ top: position + "px" }, 1); //해당 오브젝트 위치값 재설정    
+    });
+  }
+  scroll_follow("#scroll");
+  $(document).ready(function () {
+    for (var i = 0; i < 10; i++) { $('#brr').html($('#brr').html() + "<br>" + i); }
+  });
+</script>
+
+<div id="scroll" style="position:absolute;right:100; margin-top: 400px; margin-left: 15px;">
+  <br><br><br>
+  <div class="card"
+    style="border:1px ;border: 2px solid gray;width:100%;background-color: rgba( 255, 255, 255, 1 );border-radius: 15px;">
+    <p>
+      <form action="{%url 'home' %}" method="POST">{% csrf_token %}
+        <div style="border-bottom: 1px solid rgba(128, 128, 128, 0.329) ; ">
+          <h4 style="text-align:center;"><strong>Brand</strong></h4>
+          <input type="hidden" name="brand" value="all">
+          &nbsp<input type="checkbox" name="brand" value="스타벅스">&nbsp스타벅스<br>
+          &nbsp<input type="checkbox" name="brand" value="투썸플레이스">&nbsp투썸플레이스<br>
+          &nbsp<input type="checkbox" name="brand" value="all">&nbsp전체 브랜드<br><br>
+        </div>
+
+        <div style="">
+          <h4 style="text-align:center;"><strong>Sale type</strong></h4>
+          <input type="hidden" name="saletype" value="all">
+          &nbsp<input type="checkbox" name="saletype" value="경매">&nbsp경매<br>
+          &nbsp<input type="checkbox" name="saletype" value="급매">&nbsp급매<br>
+          &nbsp<input type="checkbox" name="saletype" value="all">&nbsp전체<br>
+        </div>
+        <div>
+          <input class="button" type="submit" style=" margin: 10px; margin-bottom: 0px; border-radius: 12px; padding: -10px;" value="Search!">
+        </div>
+      </form>
+    </p>
+  </div>
+</div>
+
+
+
+<!--Start Nav bar-->
 <p style="margin: 50px;"> &nbsp</p>
-  
 
 <p>
   <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
-    <a class="nav-link" href="{%url 'home' %}" style="font-size: 25px;"> Home <span class="sr-only" >(current)</span></a>
+    <a class="nav-link" href="{%url 'home' %}" style="font-size: 25px;"> Home <span class="sr-only">(current)</span></a>
   </div>
+
   <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
     <a class="nav-link" href="{%url 'about' %}" style="font-size: 25px;">About</a>
   </div>
-<div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
-<a class="nav-link" onclick="this.nextSibling.style.display=(this.nextSibling.style.display=='none')?'block':'none';"
-  href="javascript:void(0)" style="font-size: 25px;" >
-  Search
-</a><div style="DISPLAY: none">
-  <div class="card" style="border:1px ;width:100%;background-color: rgba( 255, 255, 255, 1 );" >
-      <p><form action="{%url 'home' %}" method="POST">{% csrf_token %}
-        <div style="border-right: 3px solid gray ;float:left;margin-left: 1px;margin-right: 10px;width: 50%;">
-          Brand<br> 
-          <input type="hidden" name="brand" value="all">
-          <input type="checkbox" name="brand" value="스타벅스">스타벅스<br> 
-          <input type="checkbox" name="brand" value="투썸플레이스">투썸플레이스<br> 
-          <input type="checkbox" name="brand" value="all">전체 브랜드<br> 
-        </div>
-      
-        <div style="float:left;margin-left: 10px;width: 45%;">
-          Sale type<br>
-          <input type="hidden" name="saletype" value="all">
-          <input type="checkbox" name="saletype" value="경매">경매<br> 
-          <input type="checkbox" name="saletype" value="급매">급매<br>
-          <input type="checkbox" name="saletype" value="all">전체<br>
-        </div>
-        <div >
-        <input class="button" type="submit" style=" margin-top: 10px; border-radius: 12px;" value="Search!">
-      </div>
-      </form></p>
-    </div>
-  <a onclick="this.parentNode.style.display='none';" href="javascript:void(0)">
-  </a></div></div>
 
   <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
-  <a class="nav-link" href="{%url 'upload_file' %}" style="font-size: 25px;"><span class="glyphicon glyphicon-gift" aria-hidden="true"></span>
-    Register</a></div>
-  </p>
+    <a class="nav-link" href="{%url 'upload_file' %}" style="font-size: 25px;">
+      <span class="glyphicon glyphicon-gift"aria-hidden="true"></span>&nbspRegister
+    </a>
+  </div>
 
- <p style="margin: 150px;">&nbsp</p>
+  <div style="border:1px ;float:left;width:25%;padding: 10px; border-bottom: 5px solid black;">
+      <a class="nav-link" href="{%url 'mypage' %}" style="font-size: 25px;">
+          <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbspMyPage
+        </a>
+  </div>
+</p>
+
+<p style="margin: 150px;">&nbsp</p>
 
 
 
 
 
-<!--Detail-->
+<!--Start Detail-->
 {% if details %}
 {%ifequal details.saletype "경매"%}
-<!--경매-->
-<div  class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
+<!--BID-->
+<div class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
   <div class="row no-gutters">
     <div class="col-md-4">
       <img src="{{details.productimg.url}}" height="300" alt="" class="card-img" alt="...">
@@ -92,8 +116,8 @@
 
 
 {%else%}
-<!--급매-->
-<div  class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
+<!--Just-->
+<div class="card mb-5" style="max-width: 800px; display: block; margin: 0px auto; ">
   <div class="row no-gutters">
     <div class="col-md-4">
       <img src="{{details.productimg.url}}" height="300" alt="" class="card-img" alt="...">
@@ -120,50 +144,59 @@
 
 
 
+<!--Start Sort-->
 <p style="text-align: right; grid-gap: 1rem; margin-right: 10rem;">
-<a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 1 %}" >
-  <span class="glyphicon glyphicon-star" aria-hidden="true"></span>최신순&nbsp&nbsp
-</a>
-<a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 2 %}" >낮은가격순&nbsp&nbsp </a>
-<a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 3 %}" >높은가격순 </a>
+  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 1 %}">
+    <span class="glyphicon glyphicon-star" aria-hidden="true"></span>최신순&nbsp&nbsp
+  </a>
+  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;"
+    href="{%url 'home' 2 2 %}">낮은가격순&nbsp&nbsp </a>
+  <a style="text-decoration: none; color: rgb(53, 52, 52); font-size-adjust: 8px;" href="{%url 'home' 2 3 %}">높은가격순 </a>
 </p>
 
 
+<!--Start// Show products-->
 <div class="card-group">
   {% for u in posts %}
   <a href="{%url 'home' 1 u.id %}" style="text-decoration: none;" class="button">
-  <div class="card" style="border-color: rgba(255,255,255,1);">
-    <img src="{{u.productimg.url}}" height="180" width="160" alt="">
-    <div class="card-body">
-      <h5 class="card-title">{{u.pbrand}}</h5>
-      <h5 class="card-title">{{u.pitem}}</h5>
-      <p class="card-text">{{u.lowerlimit}}</p>
- 
+    <div class="card" style="border-color: rgba(255,255,255,1);">
+      <img src="{{u.productimg.url}}" height="200" width="100%" alt="" text-align:center>
+      <div class="card-body">
+        <h5 class="card-title">{{u.pbrand}}</h5>
+        <h5 class="card-title">{{u.pitem}}</h5>
+        <p class="card-text">{{u.lowerlimit}}</p>
 
+
+      </div>
     </div>
-  </div></a>
+  </a>
   {%endfor%}
-</div><br>
+</div>
 
 
-<nav>
-    <ul class="pager">
-      {% if posts.has_previous %}
-      <li><a href="?page={{posts.previous_page_number}}">Prev</a></li>
-      {%else%}
-      <li class="previous disabled"><a href="#">Prev</a></li>
-      {% endif %}    
-    
-      <span>&nbsp&nbsp{{posts.number}}</span>
-      <span> of</span>
-      <span> {{posts.paginator.num_pages}}&nbsp&nbsp</span>
-  
-      {%if posts.has_next%}
-      <li><a href="?page={{posts.next_page_number}}">Next</a></li>
-      {%else%}
-      <li class="next disabled"><a href="#">Next</a></li>
-      {% endif %}    
-      </ul>
-  </nav>
+
+<!--Start Pagination-->
+<nav style="margin-top: -50px;">
+  <ul class="pager">
+    {% if posts.has_previous %}
+    <li><a href="?page={{posts.previous_page_number}}">Prev</a></li>
+    {%else%}
+    <li class="previous disabled"><a href="#">Prev</a></li>
+    {% endif %}
+
+    <span>&nbsp&nbsp{{posts.number}}</span>
+    <span> of</span>
+    <span> {{posts.paginator.num_pages}}&nbsp&nbsp</span>
+
+    {%if posts.has_next%}
+    <li><a href="?page={{posts.next_page_number}}">Next</a></li>
+    {%else%}
+    <li class="next disabled"><a href="#">Next</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+
+
 
 {%endblock%}

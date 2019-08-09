@@ -27,10 +27,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap" rel="stylesheet">
 
+  <!--여기 이하 head는 건드리지 마세용~-->
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-  
-  <style>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 
+  <style>
     #Login {
       border-bottom: 1px solid black;
       background-color: black;
@@ -109,12 +110,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
       grid-gap: 1rem;
-      margin: 10rem;
+      margin: 15rem;
       margin-top: -5px;
+      
     }
 
     #card-group {
-      flex: auto;
+      width: 20%;
     }
 
     #sort-select {
@@ -228,13 +230,14 @@
         color: rgb(155, 142, 27);
       }
     }
+
+
   </style>
-
-
 </head>
 
 <body>
 
+   
 
 
   <!--여기까지 상단 -->
@@ -245,8 +248,6 @@
     <div id="icon-button">
       <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'logout' %}"
         role="button">Logout</a>
-      <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'mypage' %}"
-        role="button">MyPage</a>
     </div>
     {% else %}
     <div id="icon-button">
@@ -279,4 +280,28 @@
 
   {% endblock %}
   <br><br><br><br>
+  <div style="border-top: 1px solid gray;margin-left: 100px;margin-right:100px;">
+
+      <div class="row">
+        <div class="col-sm">
+          <p><br>
+            <h5>Jerky(주) \ 대표: 윤세란<br></h5>
+            조병건 김유선 황윤영 박주현 이가은<br>
+            서울특별시 동대문구 이문동 이문로 107
+          </p>
+  
+        </div>
+  
+        <div class="col-sm">
+          <p><br>
+            365 고객센터
+            <div style="font-size:25px;">1234-5678</div>
+            <br>
+            Fax:02-0202-0202 \ email:letsgoJerky@likelion.org
+  
+          </p>
+        </div>
+      </div>
+      <br><br><br>
 </body>
+</html>

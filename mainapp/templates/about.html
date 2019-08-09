@@ -28,6 +28,115 @@
     <link href="https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap" rel="stylesheet">
 
 <style>
+ #Login {
+      border-bottom: 1px solid black;
+      background-color: black;
+      padding: 5px 120px;
+      height: 30px;
+    }
+
+    #hello {
+      float: left;
+      color: white;
+    }
+
+    #icon-button {
+      float: right;
+    }
+
+    .btn {
+      background-color: black;
+      border: none;
+      color: white;
+      font-size: 13px;
+      padding: 0px 10px;
+      display: inline-block;
+      text-align: center;
+      padding-top: 0px;
+    }
+
+    .glyphicon {
+      color: #f2d500;
+    }
+
+
+   
+
+    @font-face {
+      font-family: neon;
+      src: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/707108/neon.ttf);
+    }
+
+    .containers {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      background-color: #ffffff;
+      height: 200px;
+      width: 5000px;
+
+    }
+
+    .neon {
+      font-family: neon;
+      color: #FB4264;
+      font-size: 9vw;
+      line-height: 9vw;
+      text-shadow: 0 0 3vw #F40A35;
+      background-color: #000000;
+
+    }
+
+    .flux {
+      font-family: neon;
+      color: #426DFB;
+      font-size: 8vw;
+      line-height: 3vw;
+      text-shadow: 0 0 1vw rgb(0, 0, 0);
+      vertical-align: middle;
+      z-index: 1;
+    }
+
+    .neon {
+      animation: neon 1s ease infinite;
+      -moz-animation: neon 1s ease infinite;
+      -webkit-animation: neon 1s ease infinite;
+    }
+
+    @keyframes neon {
+
+      0%,
+      100% {
+        text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw #FED128, .5vw .5vw .1vw #806914;
+        color: #FED128;
+      }
+
+      50% {
+        text-shadow: 0 0 .5vw #800E0B, 0 0 1.5vw #800E0B, 0 0 5vw #800E0B, 0 0 5vw #800E0B, 0 0 .2vw #800E0B, .5vw .5vw .1vw #40340A;
+        color: #806914;
+      }
+    }
+
+    .flux {
+      animation: flux 2s linear infinite;
+      -moz-animation: flux 2s linear infinite;
+      -webkit-animation: flux 2s linear infinite;
+      -o-animation: flux 2s linear infinite;
+    }
+
+    @keyframes flux {
+
+      0%,
+      100% {
+        text-shadow: 0 0 1vw rgb(102, 67, 2), 0 0 3vw rgb(255, 159, 16), 0 0 10vw rgb(255, 171, 16), 0 0 10vw rgb(255, 211, 16), 0 0 .4vw rgb(254, 200, 139), .5vw .5vw .1vw #805a14;
+        color: rgb(240, 229, 75);
+      }
+
+      50% {
+        text-shadow: 0 0 .2vw #805a08, 0 0 1.5vw #806408, 0 0 5vw #805008, 0 0 5vw #805608, 0 0 .2vw #806e08, .5vw .5vw .1vw rgb(64, 34, 10);
+        color: rgb(155, 142, 27);
+      }
+    }    
 h1, h2, h3, h4, h5, h6 {
     color: #2c3145;
 }
@@ -102,20 +211,60 @@ ul {
 </style>
 </head>
 <body>
-<section class="section_all bg-light" id="about">
+        <div id="Login" style="clear: both">
+                <p id="hello">Hello {{user.username}} !</p>
+                {% if user.is_active %}
+                <div id="icon-button">
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'logout' %}"
+                    role="button">Logout</a>
+                  <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span><a class="btn" href="{%url 'mypage' %}"
+                    role="button">MyPage</a>
+                </div>
+                {% else %}
+                <div id="icon-button">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span><a class="btn" href="{%url 'login' %}"
+                    role="button">Login</a>
+                  <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span><a class="btn" href="{%url 'signup' %}"
+                    role="button">Signup</a>
+                </div>
+                {% endif %}
+              </div>
+              <br>
+
+              <div class="containers">
+                <br><br><br><br>
+                <a href="{%url 'home' %}" style="text-decoration: none;">
+                  <div class="flux">Jerky</div>
+                </a>
+              </div>
+
+
+              <p style="margin: 50px;"> &nbsp</p>
+
+
+  
+   <p style="margin-left: 400px;margin-right: 400px; border-bottom: 5px solid rgb(161, 161, 161);">&nbsp</p> 
+   
+<section class="section_all" id="about">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section_title_all text-center">
                     <h3 class="font-weight-bold">Welcome To <span class="text-custom" style="color: #dbc200;">"Jerky"</span></h3>
-                    <p class="section_subtitle mx-auto text-muted"><h5>[저ː기]
-                        : ‘저’렴한 ‘기’프티콘</h5></p>
+                    <p class="section_subtitle mx-auto text-muted"><h5><strong>[저ː기] : ‘저’렴한 ‘기’프티콘</strong>
+                        </h5></p>
                     <div class="">
                         <i class=""></i>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
+
+
 
         <div class="row vertical_content_manage mt-5">
             <div class="col-lg-6">

@@ -111,3 +111,8 @@ def buy(request, product_id):
 def pay(request, product_id):
     productpay = get_object_or_404(UploadFileModel ,pk=product_id)
     return render(request,'pay.html',{'productpay':productpay})
+
+def delete(request, product_id):
+    productdelete = get_object_or_404(UploadFileModel ,pk=product_id)
+    productdelete.delete()
+    return redirect('home')

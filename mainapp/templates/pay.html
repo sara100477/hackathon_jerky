@@ -12,19 +12,20 @@
     <!--컨텐츠 block사이에 입력하면 됩니다.-->
     {% block contents %}
 
-
-    <h1>{{productpay.lowerlimit}}원이 결제완료 되었습니다!</h1>
-
+<div style="text-align: center">
+    <br>
+    <h2>{{productpay.lowerlimit}}원이 결제완료 되었습니다!</h2>
+    <br>
     <h4>{{productpay.pbrand}}</h4>
     <p>{{productpay.pitem}}</p>
-    <img src="{{productbuy.productimg.url}}" height="300" alt=""><br>
-    <img src="{{productpay.file.url}}" height="300" alt=""><br>
+    <img src="{{productpay.productimg.url}}" height="200" alt=""><br><br>
+    <img src="{{productpay.file.url}}" height="200" alt=""><br>
     <br><br>
 
 
-    <a class="btn btn-primary" href="{%url 'home' %}" role="button">홈으로 돌아가기</a>
+    <a class="btn btn-primary" href="{% url 'delete' productpay.id %}">완료</a>
 
-
+</div>
 
 
     {%endblock%}
