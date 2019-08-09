@@ -143,7 +143,7 @@ def auction(request,product_id):
         details.bidprice = bidprice
         details.biduser = request.user.username
         details.save()
-    return render(request,'home.html',{'ufl':ufl, 'posts':posts,'brand_for_categorys':brand_for_categorys,'details':details})
+    return redirect('home')
 
 
 
